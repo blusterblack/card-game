@@ -22,11 +22,29 @@ test('Create all 52 valid card', () => {
 });
 test('Create invalid combination of suite and color', () => {
   expect(() => { new Card(1, 'club', 'red'); })
-    .toThrow('Unexpected combination of suite:club and color:red');
+    .toThrow('Mismatch card color and card suite');
   expect(() => { new Card(1, 'spade', 'red'); })
-    .toThrow('Unexpected combination of suite:spade and color:red');
+    .toThrow('Mismatch card color and card suite');
   expect(() => { new Card(1, 'diamond', 'black'); })
-    .toThrow('Unexpected combination of suite:diamond and color:black');
+    .toThrow('Mismatch card color and card suite');
   expect(() => { new Card(1, 'heart', 'black'); })
-    .toThrow('Unexpected combination of suite:heart and color:black');
+    .toThrow('Mismatch card color and card suite');
+});
+test('Create invalid card: number not between 1 and 13 ', () => {
+  expect(() => { new Card(0, 'club', 'black'); })
+    .toThrow('Card number must be between 0 and 13.');
+  expect(() => { new Card(-1, 'club', 'black'); })
+    .toThrow('Card number must be between 0 and 13.');
+  expect(() => { new Card(14, 'club', 'black'); })
+    .toThrow('Card number must be between 0 and 13.');
+});
+
+test('Create invalid card: color not red or black ', () => {
+  expect(() => { new Card(1, 'club', 'BLACK'); })
+    .toThrow('Card color must be red or black.');
+});
+
+test('Create invalid card: invalid suite ', () => {
+  expect(() => { new Card(1, 'clubs', 'black'); })
+    .toThrow('Card suite must be club, diamond, heart or spade.');
 });
